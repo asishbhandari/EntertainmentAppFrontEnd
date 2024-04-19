@@ -17,8 +17,6 @@ const BookmarkComponent = ({ id, mediaPhoto, year, type, title }) => {
 
   const updateBookmarkMedia = async () => {
     try {
-      // console.log(id);
-
       const mediaBody = {
         mediaId: id,
         title: title,
@@ -36,7 +34,6 @@ const BookmarkComponent = ({ id, mediaPhoto, year, type, title }) => {
       });
       const data = await resp.json();
       dispatch(addBookmarkMedia(data.bookmarkedMedia));
-      // console.log(data);
     } catch (error) {
       console.log("error updating bookmarked media :", error.message);
     }

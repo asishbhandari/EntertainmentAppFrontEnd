@@ -16,18 +16,18 @@ const Login = () => {
   const [formData, setformData] = useState({
     email: "",
     password: "",
-    confirmPassword: "",
+    // confirmPassword: "",
   });
   const [errors, setErrors] = useState({
     email: "",
     password: "",
-    confirmPassword: "",
+    // confirmPassword: "",
   });
 
   const [afterBlur, setAfterBlur] = useState({
     email: false,
     password: false,
-    confirmPassword: false,
+    // confirmPassword: false,
   });
 
   const handleChange = (e) => {
@@ -67,8 +67,8 @@ const Login = () => {
       } else {
         if (errors.email) toast.error(errors.email, { transition: Zoom });
         if (errors.password) toast.error(errors.password, { transition: Zoom });
-        if (errors.confirmPassword)
-          toast.error(errors.confirmPassword, { transition: Zoom });
+        // if (errors.confirmPassword)
+        //   toast.error(errors.confirmPassword, { transition: Zoom });
       }
     } catch (error) {
       toast.error(error.message, { transition: Zoom });

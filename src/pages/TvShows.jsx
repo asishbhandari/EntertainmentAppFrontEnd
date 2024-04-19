@@ -3,20 +3,13 @@ import { FiSearch } from "react-icons/fi";
 import MediaCard from "../component/MediaCard";
 import { Options } from "../constants";
 import { v4 as uuidv4 } from "uuid";
+import { Bars } from "react-loader-spinner";
 
 const TvShows = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [media, setMedia] = useState([]);
   const [searchedTv, setSearchedTv] = useState([]);
-
-  // const Options = {
-  //   method: "GET",
-  //   headers: {
-  //     accept: "application/json",
-  //     Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MzU5ZjNhYTE4ODRlMzE1Yzc5ZmEyOGQ4NWYwN2FiMSIsInN1YiI6IjY2MDZjZDQ0ZTFmYWVkMDEzMWY5NzlkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Qvcdf4wzFyXwJzH2q9QQCTlrd2vvtJ5LGPSP1SkExaI
-  //     `,
-  //   },
-  // };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const tvUrl = `https://api.themoviedb.org/3/trending/tv/day?language=en-US`;
@@ -25,6 +18,7 @@ const TvShows = () => {
         const response = await fetch(tvUrl, Options);
         const data = await response.json();
         setMedia(data.results);
+        setLoading(false);
       } catch (error) {
         console.log("error fetching Tv Shows :", error);
       }
@@ -79,20 +73,36 @@ const TvShows = () => {
           <div className="trending">
             <h2>TV Series</h2>
             <div className="mediaCardDiv">
-              {media?.slice(0, 16).map((m) => (
-                <MediaCard
-                  key={uuidv4()}
-                  id={m.id}
-                  mediaPhoto={`https://image.tmdb.org/t/p/original/${
-                    m.backdrop_path || m.poster_path
-                  }`}
-                  year={
-                    m.media_type === "movie" ? m.release_date : m.first_air_date
-                  }
-                  type={m.media_type}
-                  title={m.media_type === "movie" ? m.title : m.name}
+              {loading ? (
+                <Bars
+                  height="80"
+                  width="80"
+                  color="#4fa94d"
+                  ariaLabel="bars-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
                 />
-              ))}
+              ) : (
+                <>
+                  {media?.slice(0, 16).map((m) => (
+                    <MediaCard
+                      key={uuidv4()}
+                      id={m.id}
+                      mediaPhoto={`https://image.tmdb.org/t/p/original/${
+                        m.backdrop_path || m.poster_path
+                      }`}
+                      year={
+                        m.media_type === "movie"
+                          ? m.release_date
+                          : m.first_air_date
+                      }
+                      type={m.media_type}
+                      title={m.media_type === "movie" ? m.title : m.name}
+                    />
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </>

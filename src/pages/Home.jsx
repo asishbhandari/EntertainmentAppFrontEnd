@@ -7,12 +7,15 @@ import { BASE_URL, Options } from "../constants";
 import { Zoom, toast } from "react-toastify";
 import MediaCard from "../component/MediaCard";
 import { v4 as uuidv4 } from "uuid";
+import { Bars } from "react-loader-spinner";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [media, setMedia] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchedTv, setSearchedTv] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const dispatch = useDispatch();
   const trendingUrl =
     "https://api.themoviedb.org/3/trending/all/day?language=en-US";
@@ -21,6 +24,7 @@ const Home = () => {
     const response = await fetch(trendingUrl, Options);
     const data = await response.json();
     setMedia(data.results);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -126,41 +130,81 @@ const Home = () => {
           <div className="trending">
             <h2>Trending</h2>
             <div className="trendingCardDiv">
-              {media?.slice(0, 10).map((m) => (
-                <MediaCard
-                  key={uuidv4()}
-                  id={m.id}
-                  isTrending={true}
-                  mediaPhoto={`https://image.tmdb.org/t/p/original/${
-                    m.backdrop_path || m.poster_path
-                  }`}
-                  year={
-                    m.media_type === "movie" ? m.release_date : m.first_air_date
-                  }
-                  type={m.media_type}
-                  title={m.media_type === "movie" ? m.title : m.name}
-                />
-              ))}
+              {loading ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Bars
+                    height="80"
+                    width="80"
+                    color="#4fa94d"
+                    ariaLabel="bars-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                  />
+                </div>
+              ) : (
+                <>
+                  {media?.slice(0, 10).map((m) => (
+                    <MediaCard
+                      key={uuidv4()}
+                      id={m.id}
+                      isTrending={true}
+                      mediaPhoto={`https://image.tmdb.org/t/p/original/${
+                        m.backdrop_path || m.poster_path
+                      }`}
+                      year={
+                        m.media_type === "movie"
+                          ? m.release_date
+                          : m.first_air_date
+                      }
+                      type={m.media_type}
+                      title={m.media_type === "movie" ? m.title : m.name}
+                    />
+                  ))}
+                </>
+              )}
             </div>
           </div>
           <div className="trending">
             <h2>Recommended for you</h2>
             <div className="mediaCardDiv">
-              {media?.slice(8).map((m) => (
-                <MediaCard
-                  key={uuidv4()}
-                  isTrending={false}
-                  id={m.id}
-                  mediaPhoto={`https://image.tmdb.org/t/p/original/${
-                    m.backdrop_path || m.poster_path
-                  }`}
-                  year={
-                    m.media_type === "movie" ? m.release_date : m.first_air_date
-                  }
-                  type={m.media_type}
-                  title={m.media_type === "movie" ? m.title : m.name}
+              {loading ? (
+                <Bars
+                  height="80"
+                  width="80"
+                  color="#4fa94d"
+                  ariaLabel="bars-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
                 />
-              ))}
+              ) : (
+                <>
+                  {media?.slice(8).map((m) => (
+                    <MediaCard
+                      key={uuidv4()}
+                      isTrending={false}
+                      id={m.id}
+                      mediaPhoto={`https://image.tmdb.org/t/p/original/${
+                        m.backdrop_path || m.poster_path
+                      }`}
+                      year={
+                        m.media_type === "movie"
+                          ? m.release_date
+                          : m.first_air_date
+                      }
+                      type={m.media_type}
+                      title={m.media_type === "movie" ? m.title : m.name}
+                    />
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </>

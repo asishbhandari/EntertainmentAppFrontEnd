@@ -46,14 +46,12 @@ const Bookmark = () => {
   useEffect(() => {
     const getBookmarkedMedia = async () => {
       try {
-        const mediaBody = userBookmarkedMedia.map((media) => media?.mediaId);
         const response = await fetch(BASE_URL + "/v1/user/bookmarkedMedia", {
-          method: "POST",
+          method: "Get",
           headers: {
             "Content-Type": "application/json",
             authorization: `${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify(mediaBody),
         });
         const data = await response.json();
         setMedia(data);
@@ -86,7 +84,7 @@ const Bookmark = () => {
           <div className="mediaCardDiv">
             {searchedMovies?.slice(0, 8).map((m) => (
               <MediaCard
-                key={uuidv4()}
+                key={uuidv4() * m.id}
                 id={m.id}
                 mediaPhoto={`https://image.tmdb.org/t/p/original/${
                   m.backdrop_path || m.poster_path
@@ -138,7 +136,7 @@ const Bookmark = () => {
                     ?.slice(0, 10)
                     .map((m) => (
                       <MediaCard
-                        key={uuidv4() * m.mediaId}
+                        key={uuidv4() * m.mediaId * 23}
                         id={m.mediaId}
                         mediaPhoto={`https://image.tmdb.org/t/p/original/${m.mediaPhoto}`}
                         year={m.releaseYear.toString()}
