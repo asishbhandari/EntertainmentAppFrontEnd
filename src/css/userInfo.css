@@ -1,0 +1,45 @@
+.systemSetting {
+  color: #fc4747;
+  color: #10141e;
+  color: #5a698f;
+  color: #161d2f;
+  color: #ffffff;
+}
+.userInfoSection {
+  flex-grow: 1;
+  background-color: #10141e;
+}
+
+.userInfoDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  flex-wrap: wrap;
+  min-height: 500px;
+}
+.userInfoForm {
+  display: flex;
+  gap: 2rem;
+}
+.userInfoDiv input {
+  background-color: #10141e;
+}
+
+/* .updateBtn {
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 30px;
+  background-color: #fc4747;
+  color: #ffffff;
+  border: 0;
+  cursor: pointer;
+} */
+.profilePicture {
+  max-width: 200px;
+  height: 200px;
+  border-radius: 1rem;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+}

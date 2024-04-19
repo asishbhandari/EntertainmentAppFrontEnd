@@ -1,0 +1,11 @@
+#error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: fit-content;
+  max-height: 100vh;
+}
+
+#error-page > p > i {
+  color: rgb(164, 163, 163);
+}

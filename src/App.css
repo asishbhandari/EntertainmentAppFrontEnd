@@ -1,38 +1,198 @@
-.App {
-  text-align: center;
+/* colors */
+
+.systemSetting {
+  color: #fc4747;
+  color: #10141e;
+  color: #5a698f;
+  color: #161d2f;
+  color: #ffffff;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  margin: 0;
+  background-color: #10141e;
+  font-family: "Outfit", "sans-serif";
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+img {
+  display: block;
+  max-width: 100%;
+  max-height: auto;
+  object-fit: cover;
+}
+.containerWrapper {
+  max-width: 1440px;
+  margin-inline: auto;
+  /* border: 1px solid #fc4747; */
+}
+.RootContainer {
+  display: flex;
+  gap: 2rem;
+  box-sizing: border-box;
+  padding: 1% 2%;
+}
+
+h1 {
+  color: #ffffff;
+  font-weight: 300;
+  font-size: 40px;
+}
+h2 {
+  color: #ffffff;
+  font-weight: 300;
+  font-size: 32px;
+  padding: 0.5rem 0;
+}
+.navbar {
+  padding: 10px;
+  min-width: 70px;
+  min-height: 640px;
+  max-height: 600px;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  background-color: #161d2f;
+  color: #5a698f;
+}
+.onlyTabAndMob {
+  display: none;
+}
+
+.active:hover,
+.notActive:hover {
+  color: #fc4747;
+}
+.active {
+  color: #ffffff;
+}
+.notActive {
+  color: #5a698f;
+}
+
+.grow {
+  flex-grow: 1;
+}
+.avatar {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 4rem;
+  padding-block: 5%;
 }
 
-.App-link {
-  color: #61dafb;
+/* .h2heading {
+  color: #ffffff;
+  font-weight: 400;
+} */
+
+.logo {
+  color: #fc4747;
+  display: flex;
+  justify-content: center;
+  height: 50px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.loginContainer {
+  background-color: #161d2f;
+  width: fit-content;
+  padding: 2rem;
+  border-radius: 1rem;
+  color: #5a698f;
+  height: fit-content;
+}
+
+/* .loginContainer  */
+button {
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 30px;
+  background-color: #fc4747;
+  color: #ffffff;
+  border: 0;
+  cursor: pointer;
+}
+
+.loginContainer p {
+  margin: auto;
+  color: #ffffff;
+}
+
+.loginContainer p span {
+  color: #fc4747;
+}
+
+.activeIcon {
+  color: #ffffff;
+}
+
+.Toastify__close-button {
+  max-width: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  .RootContainer {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 1% 2%;
   }
-  to {
-    transform: rotate(360deg);
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 2px;
+    max-width: 100%;
+    /* min-height: 640px; */
+    min-height: 50px;
+    max-height: fit-content;
+    border-radius: 1rem;
+  }
+  .iconSize {
+    scale: 1.5;
+  }
+  .onlyTabAndMob {
+    display: block;
+    flex-grow: 1;
+  }
+  .logoIcon {
+    scale: 1.7;
+    margin-left: 1rem;
+  }
+  .avatar {
+    width: 3rem;
+    height: 3rem;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    margin-bottom: 0;
+    margin-right: 1rem;
   }
 }
