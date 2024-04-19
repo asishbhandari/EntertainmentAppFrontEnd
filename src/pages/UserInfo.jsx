@@ -71,20 +71,16 @@ const UserInfo = () => {
       // const data = await response.json();
       if (response.ok) {
         toast.success("Updated Successfully", { transition: Zoom });
-        dispatch(
-          updateUser({
-            firstName: userInfo.firstName,
-            lastName: userInfo.lastName,
-            email: userInfo.email,
-            billingAddress: {
-              street: userInfo.street,
-              city: userInfo.city,
-              state: userInfo.state,
-              country: userInfo.country,
-              zipCode: userInfo.zipCode,
-            },
-          })
-        );
+        const resp = await fetch(BASE_URL + "/v1/user/info", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `${localStorage.getItem("token")}`,
+          },
+        });
+        const data = await resp.json();
+        // dispatch an action to store userinfo in the redux state
+        dispatch(updateUser(data[0]));
       }
       // show updated message on ui using toaster
       if (!response.ok) {
@@ -154,6 +150,7 @@ const UserInfo = () => {
         <form encType="multipart/form-data" onSubmit={handleSubmit} noValidate>
           <div className="userInfoForm">
             <input
+              id="firstName"
               type="text"
               name="firstName"
               value={userInfo.firstName}
@@ -162,6 +159,7 @@ const UserInfo = () => {
             />
             <input
               type="text"
+              id="lastName"
               name="lastName"
               value={userInfo.lastName}
               placeholder="Last Name"
@@ -172,6 +170,7 @@ const UserInfo = () => {
             <input
               type="email"
               name="email"
+              id="email"
               value={userInfo.email}
               readOnly
               placeholder="Email"
@@ -179,6 +178,7 @@ const UserInfo = () => {
             />
             <input
               type="file"
+              id="file"
               ref={profileImageRef}
               onChange={setProfileImage}
             />
@@ -200,6 +200,7 @@ const UserInfo = () => {
             <input
               type="text"
               name="street"
+              id="street"
               value={userInfo.street}
               placeholder="street"
               onChange={handleChange}
@@ -208,6 +209,7 @@ const UserInfo = () => {
             <div className="userInfoForm">
               <input
                 type="text"
+                id="city"
                 name="city"
                 value={userInfo.city}
                 onChange={handleChange}
@@ -216,6 +218,7 @@ const UserInfo = () => {
               <input
                 type="text"
                 name="state"
+                id="state"
                 value={userInfo?.state}
                 onChange={handleChange}
                 placeholder="State"
@@ -225,6 +228,7 @@ const UserInfo = () => {
               <input
                 type="text"
                 name="country"
+                id="country"
                 value={userInfo.country}
                 onChange={handleChange}
                 placeholder="Country"
@@ -232,6 +236,7 @@ const UserInfo = () => {
               <input
                 type="number"
                 name="zipCode"
+                id="zipCode"
                 value={userInfo.zipCode}
                 onChange={handleChange}
                 placeholder="Zip Code"
@@ -246,6 +251,7 @@ const UserInfo = () => {
           <img
             src={imageSrc || profileImage}
             alt="profilePicture"
+            id="profilePicture"
             onClick={createProfileImageRef}
             className="profilePicture"
           />

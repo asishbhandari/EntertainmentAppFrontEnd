@@ -5,13 +5,14 @@ import MediaCard from "../component/MediaCard";
 import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
 import { Zoom, toast } from "react-toastify";
+import { Bars } from "react-loader-spinner";
 
 const Bookmark = () => {
   const [media, setMedia] = useState([]);
+  const [loading, setLoading] = useState(true);
   const userBookmarkedMedia = useSelector(
     (state) => state.user.bookmarkedMedia
   );
-  // console.log(media.mediaResponse);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchedTv, setSearchedTv] = useState([]);
@@ -55,8 +56,8 @@ const Bookmark = () => {
           body: JSON.stringify(mediaBody),
         });
         const data = await response.json();
-        // console.log(data);
         setMedia(data);
+        setLoading(false);
       } catch (error) {
         toast.error(error.message, { transition: Zoom });
       }
@@ -120,37 +121,65 @@ const Bookmark = () => {
           <div className="trending">
             <h2>Bookmarked Movies</h2>
             <div className="mediaCardDiv">
-              {media?.mediaResponse
-                ?.filter((ele) => ele.mediaType === "movie")
-                ?.slice(0, 10)
-                .map((m) => (
-                  <MediaCard
-                    key={uuidv4() * m.mediaId}
-                    id={m.mediaId}
-                    mediaPhoto={`https://image.tmdb.org/t/p/original/${m.mediaPhoto}`}
-                    year={m.releaseYear.toString()}
-                    type={m.mediaType}
-                    title={m.title}
-                  />
-                ))}
+              {loading ? (
+                <Bars
+                  height="80"
+                  width="80"
+                  color="#4fa94d"
+                  ariaLabel="bars-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                />
+              ) : (
+                <>
+                  {media?.mediaResponse
+                    ?.filter((ele) => ele.mediaType === "movie")
+                    ?.slice(0, 10)
+                    .map((m) => (
+                      <MediaCard
+                        key={uuidv4() * m.mediaId}
+                        id={m.mediaId}
+                        mediaPhoto={`https://image.tmdb.org/t/p/original/${m.mediaPhoto}`}
+                        year={m.releaseYear.toString()}
+                        type={m.mediaType}
+                        title={m.title}
+                      />
+                    ))}
+                </>
+              )}
             </div>
           </div>
           <div className="trending">
             <h2>Bookmarked TV Series</h2>
             <div className="mediaCardDiv">
-              {media?.mediaResponse
-                ?.filter((ele) => ele.mediaType === "tv")
-                ?.slice(0, 10)
-                .map((m) => (
-                  <MediaCard
-                    key={uuidv4()}
-                    id={m.mediaId}
-                    mediaPhoto={`https://image.tmdb.org/t/p/original/${m.mediaPhoto}`}
-                    year={m.releaseYear.toString()}
-                    type={m.mediaType}
-                    title={m.title}
-                  />
-                ))}
+              {loading ? (
+                <Bars
+                  height="80"
+                  width="80"
+                  color="#4fa94d"
+                  ariaLabel="bars-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                />
+              ) : (
+                <>
+                  {media?.mediaResponse
+                    ?.filter((ele) => ele.mediaType === "tv")
+                    ?.slice(0, 10)
+                    .map((m) => (
+                      <MediaCard
+                        key={uuidv4()}
+                        id={m.mediaId}
+                        mediaPhoto={`https://image.tmdb.org/t/p/original/${m.mediaPhoto}`}
+                        year={m.releaseYear.toString()}
+                        type={m.mediaType}
+                        title={m.title}
+                      />
+                    ))}
+                </>
+              )}
             </div>
           </div>
         </>
