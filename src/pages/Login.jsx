@@ -2,32 +2,24 @@ import { GrMultimedia } from "react-icons/gr";
 import FormInput from "../component/FormInput";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addEmail } from "../redux/userSlice";
 import { BASE_URL } from "../constants";
 import { Zoom, toast } from "react-toastify";
-// import { v4 as uuidv4 } from "uuid";
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user.email);
 
   const [formData, setformData] = useState({
     email: "",
     password: "",
-    // confirmPassword: "",
   });
   const [errors, setErrors] = useState({
     email: "",
     password: "",
-    // confirmPassword: "",
   });
 
   const [afterBlur, setAfterBlur] = useState({
     email: false,
     password: false,
-    // confirmPassword: false,
   });
 
   const handleChange = (e) => {
@@ -54,7 +46,6 @@ const Login = () => {
         if (!response.ok) {
           throw new Error("Error Signing in");
         }
-        dispatch(addEmail(data?.email));
         setformData({
           email: "",
           password: "",
@@ -67,8 +58,6 @@ const Login = () => {
       } else {
         if (errors.email) toast.error(errors.email, { transition: Zoom });
         if (errors.password) toast.error(errors.password, { transition: Zoom });
-        // if (errors.confirmPassword)
-        //   toast.error(errors.confirmPassword, { transition: Zoom });
       }
     } catch (error) {
       toast.error(error.message, { transition: Zoom });
@@ -110,7 +99,7 @@ const Login = () => {
 
   const inputFields = [
     {
-      id: 1,
+      id: 10,
       name: "email",
       type: "email",
       placeholder: "Email Address",
@@ -119,7 +108,7 @@ const Login = () => {
       autoFocus: true,
     },
     {
-      id: 2,
+      id: 11,
       name: "password",
       type: "password",
       placeholder: "Password",

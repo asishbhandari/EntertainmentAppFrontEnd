@@ -154,7 +154,7 @@ const SignUp = () => {
         <form>
           {inputFields.map((input) => (
             <FormInput
-              key={input.id * 5}
+              key={input.id}
               {...input}
               errorMessage={errors[input.name]}
               value={formData[input.name]}

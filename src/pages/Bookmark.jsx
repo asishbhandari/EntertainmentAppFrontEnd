@@ -3,9 +3,10 @@ import { FiSearch } from "react-icons/fi";
 import { BASE_URL, Options } from "../constants";
 import MediaCard from "../component/MediaCard";
 import { v4 as uuidv4 } from "uuid";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Zoom, toast } from "react-toastify";
 import { Bars } from "react-loader-spinner";
+// import { updateUser } from "../redux/userSlice";
 
 const Bookmark = () => {
   const [media, setMedia] = useState([]);
@@ -16,6 +17,8 @@ const Bookmark = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchedTv, setSearchedTv] = useState([]);
+
+  const dispatch = useDispatch();
 
   // useEffect to Search Movies
   useEffect(() => {
@@ -42,26 +45,27 @@ const Bookmark = () => {
     return () => clearTimeout(searchMovies);
   }, [searchTerm]);
 
-  // useEffect to load all the bookmarked media from dataBase
+  // useEffect to load all the bookmarked media of a user from dataBase
   useEffect(() => {
     const getBookmarkedMedia = async () => {
       try {
-        const response = await fetch(BASE_URL + "/v1/user/bookmarkedMedia", {
-          method: "Get",
+        const resp = await fetch(BASE_URL + "/v1/user/bookmarkedMedia", {
+          method: "GET",
           headers: {
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
             authorization: `${localStorage.getItem("token")}`,
           },
         });
-        const data = await response.json();
-        setMedia(data);
+        const data = await resp.json();
+        setMedia(data.mediaResponse);
         setLoading(false);
+        console.log(data.mediaResponse);
       } catch (error) {
         toast.error(error.message, { transition: Zoom });
       }
     };
     getBookmarkedMedia();
-  }, [userBookmarkedMedia]);
+  }, [userBookmarkedMedia, dispatch]);
 
   return (
     <div className="mainContainer">
@@ -131,12 +135,12 @@ const Bookmark = () => {
                 />
               ) : (
                 <>
-                  {media?.mediaResponse
+                  {media
                     ?.filter((ele) => ele.mediaType === "movie")
                     ?.slice(0, 10)
                     .map((m) => (
                       <MediaCard
-                        key={uuidv4() * m.mediaId * 23}
+                        key={m.mediaId}
                         id={m.mediaId}
                         mediaPhoto={`https://image.tmdb.org/t/p/original/${m.mediaPhoto}`}
                         year={m.releaseYear.toString()}
@@ -163,12 +167,12 @@ const Bookmark = () => {
                 />
               ) : (
                 <>
-                  {media?.mediaResponse
+                  {media
                     ?.filter((ele) => ele.mediaType === "tv")
                     ?.slice(0, 10)
                     .map((m) => (
                       <MediaCard
-                        key={uuidv4()}
+                        key={m.mediaId}
                         id={m.mediaId}
                         mediaPhoto={`https://image.tmdb.org/t/p/original/${m.mediaPhoto}`}
                         year={m.releaseYear.toString()}

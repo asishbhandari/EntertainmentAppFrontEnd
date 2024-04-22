@@ -6,10 +6,12 @@ import { clearState, updateUser, addProfilePhoto } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../constants";
 import { Zoom, toast } from "react-toastify";
+import { Bars } from "react-loader-spinner";
 
 const UserInfo = () => {
   // making a ref for the input type file to use on the image tag
   const profileImageRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   // getting user details from the redux store
   // const userDetails = useSelector((state) => state.user);
@@ -48,6 +50,7 @@ const UserInfo = () => {
         const formData = new FormData();
         formData.append("email", userInfo.email);
         formData.append("profilePicture", profilePicture);
+        setLoading(true);
         const res = await fetch(BASE_URL + "/v1/user/updatePhoto", {
           method: "PATCH",
           headers: {
@@ -56,6 +59,7 @@ const UserInfo = () => {
           body: formData,
         });
         const data = await res.json();
+        setLoading(false);
         toast.success("Profile Photo Updated", { transition: Zoom });
         dispatch(addProfilePhoto(data?.profilePicture));
         setImageSrc(data?.profilePicture);
@@ -147,106 +151,128 @@ const UserInfo = () => {
     <div className="userInfoSection">
       <h2>User Details</h2>
       <div className="userInfoDiv">
-        <form encType="multipart/form-data" onSubmit={handleSubmit} noValidate>
-          <div className="userInfoForm">
-            <input
-              id="firstName"
-              type="text"
-              name="firstName"
-              value={userInfo.firstName}
-              onChange={handleChange}
-              placeholder="First Name"
-            />
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              value={userInfo.lastName}
-              placeholder="Last Name"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="userInfoForm">
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={userInfo.email}
-              readOnly
-              placeholder="Email"
-              onChange={handleChange}
-            />
-            <input
-              type="file"
-              id="file"
-              ref={profileImageRef}
-              onChange={setProfileImage}
-            />
-          </div>
-          <span
-            style={{
-              color: "#ffffff",
-              alignSelf: "start",
-              fontSize: "12px",
-              paddingLeft: "10px",
-              paddingTop: "10px",
-            }}
-          >
-            Billing Address
-          </span>
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-          >
-            <input
-              type="text"
-              name="street"
-              id="street"
-              value={userInfo.street}
-              placeholder="street"
-              onChange={handleChange}
-              style={{ width: "100%" }}
-            />
-            <div className="userInfoForm">
-              <input
-                type="text"
-                id="city"
-                name="city"
-                value={userInfo.city}
-                onChange={handleChange}
-                placeholder="City"
-              />
-              <input
-                type="text"
-                name="state"
-                id="state"
-                value={userInfo?.state}
-                onChange={handleChange}
-                placeholder="State"
-              />
-            </div>
-            <div className="userInfoForm">
-              <input
-                type="text"
-                name="country"
-                id="country"
-                value={userInfo.country}
-                onChange={handleChange}
-                placeholder="Country"
-              />
-              <input
-                type="number"
-                name="zipCode"
-                id="zipCode"
-                value={userInfo.zipCode}
-                onChange={handleChange}
-                placeholder="Zip Code"
-              />
-            </div>
-          </div>
-          <button className="updateBtn" type="submit">
-            Update
-          </button>
-        </form>
+        {loading ? (
+          <Bars
+            height="80"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="bars-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
+        ) : (
+          <>
+            <form
+              encType="multipart/form-data"
+              onSubmit={handleSubmit}
+              noValidate
+            >
+              <div className="userInfoForm">
+                <input
+                  id="firstName"
+                  type="text"
+                  name="firstName"
+                  value={userInfo.firstName}
+                  onChange={handleChange}
+                  placeholder="First Name"
+                />
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value={userInfo.lastName}
+                  placeholder="Last Name"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="userInfoForm">
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={userInfo.email}
+                  readOnly
+                  placeholder="Email"
+                  onChange={handleChange}
+                />
+                <input
+                  type="file"
+                  id="file"
+                  ref={profileImageRef}
+                  onChange={setProfileImage}
+                />
+              </div>
+              <span
+                style={{
+                  color: "#ffffff",
+                  alignSelf: "start",
+                  fontSize: "12px",
+                  paddingLeft: "10px",
+                  paddingTop: "10px",
+                }}
+              >
+                Billing Address
+              </span>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
+                }}
+              >
+                <input
+                  type="text"
+                  name="street"
+                  id="street"
+                  value={userInfo.street}
+                  placeholder="street"
+                  onChange={handleChange}
+                  style={{ width: "100%" }}
+                />
+                <div className="userInfoForm">
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    value={userInfo.city}
+                    onChange={handleChange}
+                    placeholder="City"
+                  />
+                  <input
+                    type="text"
+                    name="state"
+                    id="state"
+                    value={userInfo?.state}
+                    onChange={handleChange}
+                    placeholder="State"
+                  />
+                </div>
+                <div className="userInfoForm">
+                  <input
+                    type="text"
+                    name="country"
+                    id="country"
+                    value={userInfo.country}
+                    onChange={handleChange}
+                    placeholder="Country"
+                  />
+                  <input
+                    type="number"
+                    name="zipCode"
+                    id="zipCode"
+                    value={userInfo.zipCode}
+                    onChange={handleChange}
+                    placeholder="Zip Code"
+                  />
+                </div>
+              </div>
+              <button className="updateBtn" type="submit">
+                Update
+              </button>
+            </form>
+          </>
+        )}
         <div>
           <img
             src={imageSrc || profileImage}
