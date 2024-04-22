@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# Entertainment App Frontend #
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the frontend repository of our Entertainment App! This React-based frontend provides users with an intuitive interface to explore, discover, and enjoy various entertainment content including movies, TV shows,and more.
 
-## Available Scripts
+## `Features` ##
+`Browse Content:` Explore a vast library of movies, TV shows entertainment content.  
+`Search Functionality:` Easily search for specific titles of movies or tv shows using the search feature.   
+`User Profiles:` Create and manage user profiles to customize your experience and track your favorite content.  
+`Bookmarking:` Save your favorite movies, TV shows for later viewing.  
+`Responsive Design:` Enjoy a seamless experience across desktop, tablet, and mobile devices.  
 
-In the project directory, you can run:
+### `Technologies Used` ###
 
-### `npm start`
+`React:` A JavaScript library for building user interfaces.  
+`React Router:` Declarative routing for React applications, enabling navigation between different views.  
+`Redux:` State management library for managing application state and data flow.  
+`CSS Modules:` CSS file organization method for locally scoped CSS by default.  
+`ESLint:` JavaScript linting tool to maintain code quality and consistency.  
+`Prettier:` Code formatter to ensure consistent code style across the project.  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### `Getting Started`
+To get started with the frontend development environment, follow these steps:  
+`Clone the Repository:` Clone this repository to your local machine using the following command:  
+`git clone https://github.com/asishbhandari/EntertainmentAppFrontEnd.git`  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+`Install Dependencies:` Navigate to the project directory and install dependencies using npm or yarn:  
+cd entertainment-app-frontend  
+npm install  
+or  
+yarn install  
 
-### `npm test`
+`Start Development Server:` Start the development server to run the app locally:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+npm start  
+or  
+yarn start  
 
-### `npm run build`
+`Open in Browser:` Once the development server starts, open your web browser and navigate to http://localhost:3000 to view the app.  
+`Explore and Develop:` Start exploring the codebase and make changes as needed. The development server will automatically reload the app whenever you save changes to the source files.  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `Contributing`
+We welcome contributions from the community! If you find any bugs, have feature requests, or want to contribute enhancements, please feel free to submit a pull request or open an issue in this repository.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Before contributing, please make sure to review our Contributing Guidelines for instructions on how to contribute to this project.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
